@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public enum SocialType {
 
-    KAKAO, NAVER, GOOGLE;
+    KAKAO, NAVER, GOOGLE, DEFAULT;
 
     public static boolean isMemberType(String type) {
         List<SocialType> socialTypes = Arrays.stream(SocialType.values())

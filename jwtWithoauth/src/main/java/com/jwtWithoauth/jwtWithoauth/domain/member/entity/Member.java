@@ -36,7 +36,6 @@ public class Member {
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
     private SocialType socialType;
 
     @Column(length = 250)
