@@ -39,8 +39,8 @@ import java.io.IOException;
 public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     private static final String NO_CHECK_URL = "/login"; // "/login"으로 들어오는 요청은 Filter 작동 X
 
-    private JwtService jwtService;
-    private MemberRepository memberRepository;
+    private final JwtService jwtService;
+    private final MemberRepository memberRepository;
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
 
@@ -104,7 +104,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     /**
      * [액세스 토큰 체크 & 인증 처리 메소드]
-     * request에서 extractAccessToken()으로 액세스 토큰 추출 후, isTokenValid()로 유효한 토큰인지 검증
+     * request에서 extractAccessToken()으로 액세스 토큰 추출 후, validateToken()로 유효한 토큰인지 검증
      * 유효한 토큰이면, 액세스 토큰에서 extractEmail로 Email을 추출한 후 findByEmail()로 해당 이메일을 사용하는 유저 객체 반환
      * 그 유저 객체를 saveAuthentication()으로 인증 처리하여
      * 인증 허가 처리된 객체를 SecurityContextHolder에 담기
