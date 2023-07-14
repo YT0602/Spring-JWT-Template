@@ -3,8 +3,6 @@ package com.jwtWithoauth.jwtWithoauth.global.jwt.filter;
 import com.jwtWithoauth.jwtWithoauth.domain.member.entity.Member;
 import com.jwtWithoauth.jwtWithoauth.domain.member.repository.MemberRepository;
 import com.jwtWithoauth.jwtWithoauth.global.jwt.service.JwtService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -85,7 +83,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         memberRepository.findByRefreshToken(refreshToken)
                 .ifPresent(member -> {
                         String reIssuedRefreshToken = reIssueRefreshToken(member);
-                        jwtService.sendAccessTokenAndRefreshToken(response, jwtService.createAccessToken(member.getEmail()),
+                        jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(member.getEmail()),
                                 reIssuedRefreshToken);
                 });
     }

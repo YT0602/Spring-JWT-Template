@@ -43,8 +43,7 @@ public class JwtService {
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     private static final String EMAIL_CLAIM = "email";
-    private static final String MEMBERID_CLAIM = "memberId";
-    private static final String BEARER = "Bearer";
+    private static final String BEARER = "Bearer ";
 
     private final MemberRepository memberRepository;
 
@@ -88,7 +87,7 @@ public class JwtService {
     /**
      * AccessToken + RefreshToken 로그인 시 헤더에 실어서 보내기
      */
-    public void sendAccessTokenAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
+    public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setHeader(accessHeader, accessToken);
         response.setHeader(refreshHeader, refreshToken);
