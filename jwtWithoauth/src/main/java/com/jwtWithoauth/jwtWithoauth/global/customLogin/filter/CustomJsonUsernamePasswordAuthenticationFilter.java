@@ -34,10 +34,11 @@ public class CustomJsonUsernamePasswordAuthenticationFilter extends AbstractAuth
 
     private final ObjectMapper objectMapper;
 
-    public CustomJsonUsernamePasswordAuthenticationFilter(ObjectMapper objectMapper, ObjectMapper objectMapper1) {
-        super(DEFAULT_LOGIN_PATH_REQUEST_MATCHER);
-        this.objectMapper = objectMapper1;
+    public CustomJsonUsernamePasswordAuthenticationFilter(ObjectMapper objectMapper) {
+        super(DEFAULT_LOGIN_PATH_REQUEST_MATCHER); // 위에서 설정한 "login" + POST로 온 요청을 처리하기 위해 설정
+        this.objectMapper = objectMapper;
     }
+
     /**
      * 인증 처리 메소드
      *
@@ -57,7 +58,7 @@ public class CustomJsonUsernamePasswordAuthenticationFilter extends AbstractAuth
      * (여기서 AuthenticationManager 객체는 ProviderManager -> SecurityConfig에서 설정)
      */
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
         if (request.getContentType() == null || !request.getContentType().equals(CONTENT_TYPE)) {
             throw new AuthenticationServiceException("Authentication Content-Type not supported: " + request.getContentType());
 
