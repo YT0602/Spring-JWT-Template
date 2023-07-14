@@ -51,14 +51,13 @@ public class JwtService {
     /**
      * AccessToken 생성 메소드
      */
-    public String createAccessToken(String email, Long memberId){
+    public String createAccessToken(String email) {
         Date now = new Date();
         return JWT.create()
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
                 .withIssuedAt(Date.from(Instant.ofEpochMilli(now.getTime()))) // 발급 시간 설정
                 .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod))
                 .withClaim(EMAIL_CLAIM, email)
-                .withClaim(MEMBERID_CLAIM, memberId)
                 .sign(Algorithm.HMAC512(secretKey));
 
     }
