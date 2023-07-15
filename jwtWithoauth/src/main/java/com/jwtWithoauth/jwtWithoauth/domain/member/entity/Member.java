@@ -19,29 +19,27 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberid;
 
-    @Column(unique = true, length = 50, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(length = 200)
     private String password;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String nickname;
 
-    @Column(length = 200)
-    private String profile;
+    private String imageUrl; // 프로필 이미지
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false)
     private Role role;
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
+    private String socialId; // 로그인한 소셜 타입의 식별자 값
+
     @Column(length = 250)
     private String refreshToken;
-
-    private LocalDateTime tokenExpirationTime;
 
     // 유저 권한 설정 메소드
     public void authorizeUser() {
