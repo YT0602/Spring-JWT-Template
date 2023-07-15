@@ -30,6 +30,8 @@ public class MemberService {
                 .email(memberSignDto.getEmail())
                 .password(memberSignDto.getPassword())
                 .nickname(memberSignDto.getNickname())
+                .socialType(SocialType.DEFAULT)
+                .socialId(SocialType.DEFAULT + "-" + memberSignDto.getId())
                 .role(Role.USER)
                 .build();
 
