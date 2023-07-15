@@ -8,6 +8,9 @@ import com.jwtWithoauth.jwtWithoauth.global.customLogin.handler.LoginSuccessHand
 import com.jwtWithoauth.jwtWithoauth.global.customLogin.service.LoginService;
 import com.jwtWithoauth.jwtWithoauth.global.jwt.filter.JwtAuthenticationProcessingFilter;
 import com.jwtWithoauth.jwtWithoauth.global.jwt.service.JwtService;
+import com.jwtWithoauth.jwtWithoauth.global.oauth2.handler.OAuth2LoginFailureHandler;
+import com.jwtWithoauth.jwtWithoauth.global.oauth2.handler.OAuth2LoginSuccessHandler;
+import com.jwtWithoauth.jwtWithoauth.global.oauth2.service.CustomOAuth2MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +38,9 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
     private final ObjectMapper objectMapper;
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+    private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
+    private final CustomOAuth2MemberService customOAuth2MemberService;
 
 
     @Bean
@@ -52,7 +58,14 @@ public class SecurityConfig {
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
                 .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
                 .antMatchers("/signup").permitAll() // 회원가입 접근 가능
-                .anyRequest().authenticated();// 위의 경로 외에는 모두 인증된 사용자만 접근 가능
+                .antMatchers("/login/oauth2/code/kakao?code=tG8fHuAwjr7MKBHmfdHOhNX1BmR82HQhvAd1IdTtZMVidtfibJJHrkfsEfs3a5HZknBAmAoqJU4AAAGJWrBtZg&state=ECG6wIY5fraHmIpQRx576Fhd-9DzSJe3cpJP0JqD_Js%3D").permitAll()
+                .anyRequest().authenticated() // 위의 경로 외에는 모두 인증된 사용자만 접근 가능
+                .and()
+                .oauth2Login()
+                .successHandler(oAuth2LoginSuccessHandler)
+                .failureHandler(oAuth2LoginFailureHandler)
+                .userInfoEndpoint().userService(customOAuth2MemberService);
+
 
         // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
