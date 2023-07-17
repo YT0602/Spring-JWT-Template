@@ -5,6 +5,7 @@ import com.jwtWithoauth.jwtWithoauth.domain.member.entity.Member;
 import com.jwtWithoauth.jwtWithoauth.domain.member.repository.MemberRepository;
 import com.jwtWithoauth.jwtWithoauth.global.oauth2.CustomOAuth2Member;
 import com.jwtWithoauth.jwtWithoauth.global.oauth2.OAuthAttributes;
+import com.jwtWithoauth.jwtWithoauth.global.oauth2.constant.RegistrationId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,8 +25,7 @@ import java.util.Map;
 public class CustomOAuth2MemberService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final MemberRepository memberRepository;
-    private static final String NAVER = "naver";
-    private static final String KAKAO = "kakao";
+    private OAuth2UserService<OAuth2UserRequest, OAuth2User> delegete = new DefaultOAuth2UserService();
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -37,13 +37,12 @@ public class CustomOAuth2MemberService implements OAuth2UserService<OAuth2UserRe
          * 사용자 정보를 얻은 후, 이를 통해 DefaultOAuth2User 객체를 생성 후 반환한다.
          * 결과적으로, OAuth2User는 OAuth 서비스에서 가져온 유저 정보를 담고 있는 유저
          */
-        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegete = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegete.loadUser(userRequest);
 
         /**
          * userRequest에서 registrationId 추출 후 registrationId으로 SocialType 저장
          * http://localhost:8080/oauth2/authorization/kakao에서 kakao가 registrationId
-         * userNameAttributeName은 이후에 nameAttributeKey로 설정된다.
+         * memberNameAttributeName은 이후에 nameAttributeKey로 설정된다.
          */
         String registraionId = userRequest.getClientRegistration().getRegistrationId();
         SocialType socialType = getSocialType(registraionId);
@@ -66,12 +65,14 @@ public class CustomOAuth2MemberService implements OAuth2UserService<OAuth2UserRe
     }
 
     private SocialType getSocialType(String registraionId) {
-        if (NAVER.equals(registraionId)) {
-            return SocialType.NAVER;
-        } else if (KAKAO.equals(registraionId)) {
-            return SocialType.KAKAO;
-        } else {
-            return SocialType.GOOGLE;
+        // 1. RegistrationId를 사용하여 SocialType 결정
+        switch (RegistrationId.valueOf(registraionId.toUpperCase())) {
+            case NAVER:
+                return SocialType.NAVER;
+            case KAKAO:
+                return SocialType.KAKAO;
+            default:
+                return SocialType.GOOGLE;
         }
     }
 
@@ -80,13 +81,8 @@ public class CustomOAuth2MemberService implements OAuth2UserService<OAuth2UserRe
      * 만약 찾은 회원이 있다면, 그대로 반환하고 없다면 saveMember()를 호출하여 회원을 저장한다.
      */
     private Member getMember(OAuthAttributes attributes, SocialType socialType) {
-        Member findMember = memberRepository.findBySocialId(socialType + "-" + attributes.getOauth2UserInfo().getId())
-                .orElse(null);
-
-        if (findMember == null) {
-            return saveMember(attributes, socialType);
-        }
-        return findMember;
+        return memberRepository.findBySocialId(socialType + "-" + attributes.getOauth2UserInfo().getId())
+                .orElseGet(() -> saveMember(attributes, socialType));
     }
 
     /**

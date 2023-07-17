@@ -51,6 +51,7 @@ public class JwtService {
      * AccessToken 생성 메소드
      */
     public String createAccessToken(String email) {
+        log.info("AccessToken 발급");
         Date now = new Date();
         return JWT.create()
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
@@ -89,8 +90,8 @@ public class JwtService {
      */
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
-        response.setHeader(accessHeader, accessToken);
-        response.setHeader(refreshHeader, refreshToken);
+        response.setHeader(accessHeader, "Bearer " + accessToken);
+        response.setHeader(refreshHeader, "Bearer " + refreshToken);
 
         log.info("AccessToken, RefreshToken 헤더 설정 완료");
     }
