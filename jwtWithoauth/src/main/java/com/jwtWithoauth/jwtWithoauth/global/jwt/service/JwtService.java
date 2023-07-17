@@ -90,8 +90,8 @@ public class JwtService {
      */
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
-        response.setHeader(accessHeader, "Bearer " + accessToken);
-        response.setHeader(refreshHeader, "Bearer " + refreshToken);
+        response.setHeader(accessHeader, accessToken);
+        response.setHeader(refreshHeader, refreshToken);
 
         log.info("AccessToken, RefreshToken 헤더 설정 완료");
     }

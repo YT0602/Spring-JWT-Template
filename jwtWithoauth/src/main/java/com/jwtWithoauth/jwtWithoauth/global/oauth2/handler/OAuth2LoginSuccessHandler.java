@@ -30,6 +30,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             // Member의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
             if (oAuth2Member.getRole() == Role.GUEST) {
                 String accessToken = jwtService.createAccessToken(oAuth2Member.getEmail());
+                response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
                 response.sendRedirect("/oauth2/signup"); // 추가정보 입력 폼으로 리다이렉트
                 jwtService.sendAccessAndRefreshToken(response, accessToken, null);
             } else {
@@ -43,6 +44,8 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     private void loginSuccess(HttpServletResponse response, CustomOAuth2Member oAuth2Member) throws IOException {
         String accessToken = jwtService.createAccessToken(oAuth2Member.getEmail());
         String refreshToken = jwtService.createRefreshToken();
+        response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
+        response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
 
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
         jwtService.updateRefreshToken(oAuth2Member.getEmail(), refreshToken);
