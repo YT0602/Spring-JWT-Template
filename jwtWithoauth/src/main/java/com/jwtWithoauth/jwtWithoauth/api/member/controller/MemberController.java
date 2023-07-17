@@ -22,4 +22,9 @@ public class MemberController {
         return "회원가입 완료";
     }
 
+    @GetMapping("/oauth2/signup")
+    public String oauth2SignUp(){
+        return "oauth2";
+    }
+
 }
