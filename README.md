@@ -1,1 +1,1 @@
-# Spring-JWT-Template
+# Spring-security + JWT
