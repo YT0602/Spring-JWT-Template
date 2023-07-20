@@ -12,11 +12,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/jwt
     username: root
-    password: tae5263zz
+    password: ENC(+hoiZ9yo77g+QhmKaryQtnwc4CaX9dxu)
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true # 콘솔창에 sql 출력
     properties:
       hibernate:
@@ -46,5 +46,11 @@ feign:
         readTimeout: 5000
 
 jasypt:
-  password: ${PASSWORD}
+  encryptor:
+    password: ${PASSWORD}
 
+naver-cloud-sms:
+  accessKey: ENC(LMf2j10vy65ZbmkRIu2r1ehtQ5CFlh4itsgIFR9lklg=)
+  secretKey: ENC(uo0k2A/MWqIjM6OPjLWO2Pc5RmmmLKikm+nVuumk6o64WLkikywyMc6vTxMdDgQmlNzCf4+aZ1w=)
+  serviceId: ncp:sms:kr:312158415801:i_like_cloud
+  senderPhone: "01059111911"
