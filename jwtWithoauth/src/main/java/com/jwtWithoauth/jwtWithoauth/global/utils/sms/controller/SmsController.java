@@ -1,9 +1,9 @@
-package jwt.oauth.login.global.utils.sms.controller;
+package com.jwtWithoauth.jwtWithoauth.global.utils.sms.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jwt.oauth.login.global.utils.sms.dto.MessageDto;
-import jwt.oauth.login.global.utils.sms.dto.SmsResponseDto;
-import jwt.oauth.login.global.utils.sms.service.SmsService;
+import com.jwtWithoauth.jwtWithoauth.global.utils.sms.dto.MessageDto;
+import com.jwtWithoauth.jwtWithoauth.global.utils.sms.dto.SmsResponseDto;
+import com.jwtWithoauth.jwtWithoauth.global.utils.sms.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

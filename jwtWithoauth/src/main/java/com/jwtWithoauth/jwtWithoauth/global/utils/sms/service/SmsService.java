@@ -1,21 +1,20 @@
-package jwt.oauth.login.global.utils.sms.service;
+package com.jwtWithoauth.jwtWithoauth.global.utils.sms.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jwt.oauth.login.global.utils.sms.dto.MessageDto;
-import jwt.oauth.login.global.utils.sms.dto.SmsRequestDto;
-import jwt.oauth.login.global.utils.sms.dto.SmsResponseDto;
+import com.jwtWithoauth.jwtWithoauth.global.utils.sms.dto.MessageDto;
+import com.jwtWithoauth.jwtWithoauth.global.utils.sms.dto.SmsRequestDto;
+import com.jwtWithoauth.jwtWithoauth.global.utils.sms.dto.SmsResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpEntity;
-
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

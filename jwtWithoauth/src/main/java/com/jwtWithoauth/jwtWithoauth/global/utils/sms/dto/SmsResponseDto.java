@@ -1,4 +1,4 @@
-package jwt.oauth.login.global.utils.sms.dto;
+package com.jwtWithoauth.jwtWithoauth.global.utils.sms.dto;
 
 import lombok.*;
 
