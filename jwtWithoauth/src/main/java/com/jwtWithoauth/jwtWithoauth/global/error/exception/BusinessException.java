@@ -1,6 +1,6 @@
-package jwt.oauth.login.global.error.exception;
+package com.jwtWithoauth.jwtWithoauth.global.error.exception;
 
-import jwt.oauth.login.global.error.ErrorCode;
+import com.jwtWithoauth.jwtWithoauth.global.error.ErrorCode;
 import lombok.Getter;
 
 @Getter

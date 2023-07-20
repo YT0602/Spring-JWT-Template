@@ -1,6 +1,5 @@
-package jwt.oauth.login.global.error;
+package com.jwtWithoauth.jwtWithoauth.global.error;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 

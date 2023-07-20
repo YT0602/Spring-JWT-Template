@@ -1,9 +1,8 @@
-package jwt.oauth.login.global.error;
+package com.jwtWithoauth.jwtWithoauth.global.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 

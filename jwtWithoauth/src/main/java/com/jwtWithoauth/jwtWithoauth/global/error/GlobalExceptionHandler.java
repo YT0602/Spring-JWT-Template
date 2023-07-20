@@ -1,6 +1,6 @@
-package jwt.oauth.login.global.error;
+package com.jwtWithoauth.jwtWithoauth.global.error;
 
-import jwt.oauth.login.global.error.exception.BusinessException;
+import com.jwtWithoauth.jwtWithoauth.global.error.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
