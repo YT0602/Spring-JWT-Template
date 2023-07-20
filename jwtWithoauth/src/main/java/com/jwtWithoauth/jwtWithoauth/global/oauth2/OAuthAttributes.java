@@ -4,7 +4,6 @@ import com.jwtWithoauth.jwtWithoauth.domain.member.constant.Role;
 import com.jwtWithoauth.jwtWithoauth.domain.member.constant.SocialType;
 import com.jwtWithoauth.jwtWithoauth.domain.member.entity.Member;
 import com.jwtWithoauth.jwtWithoauth.global.oauth2.memberinfo.GoogleOAuth2MemberInfo;
-import com.jwtWithoauth.jwtWithoauth.global.oauth2.memberinfo.KakaoOAuth2MemberInfo;
 import com.jwtWithoauth.jwtWithoauth.global.oauth2.memberinfo.NaverOAuth2MemberInfo;
 import com.jwtWithoauth.jwtWithoauth.global.oauth2.memberinfo.OAuth2MemberInfo;
 import lombok.Builder;
@@ -39,10 +38,8 @@ public class OAuthAttributes {
                                      String memberAttributeName, Map<String, Object> attributes) {
         if (socialType == SocialType.GOOGLE) {
             return ofGoogle(memberAttributeName, attributes);
-        } else if (socialType == SocialType.NAVER) {
-            return ofNaver(memberAttributeName, attributes);
         } else {
-            return ofKakao(memberAttributeName, attributes);
+            return ofNaver(memberAttributeName, attributes);
         }
     }
 
@@ -60,12 +57,6 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public static OAuthAttributes ofKakao(String memberAttributesName, Map<String, Object> attributes) {
-        return OAuthAttributes.builder()
-                .nameAttributeKey(memberAttributesName)
-                .oAuth2MemberInfo(new KakaoOAuth2MemberInfo(attributes))
-                .build();
-    }
 
     /**
      * of메소드로 OAuthAttributes 객체가 생성되어, 유저 정보들이 담긴 OAuth2UserInfo가 소셜 타입별로 주입된 상태

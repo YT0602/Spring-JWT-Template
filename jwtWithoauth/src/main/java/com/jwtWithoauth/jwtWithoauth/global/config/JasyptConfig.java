@@ -1,4 +1,4 @@
-package jwt.oauth.login.global.config;
+package com.jwtWithoauth.jwtWithoauth.global.config;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.jasypt.encryption.StringEncryptor;

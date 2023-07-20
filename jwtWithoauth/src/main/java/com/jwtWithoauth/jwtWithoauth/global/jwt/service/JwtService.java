@@ -61,7 +61,6 @@ public class JwtService {
                 .sign(Algorithm.HMAC512(secretKey));
 
     }
-
     /**
      * RefreshToken 생성
      * RefreshToken은 Claim에 email도 넣지 않으므로 withClaim() X
@@ -76,7 +75,7 @@ public class JwtService {
     }
 
     /**
-     * AccessToken 재발급 시 헤더에 실어서 보내기
+     * AccessToken 재발급 시 헤더에 실어서 보내기 (RTR방식에서는 사용 x)
      */
     public void sendAccessToken(HttpServletResponse response, String accessToken){
         response.setStatus(HttpServletResponse.SC_OK);

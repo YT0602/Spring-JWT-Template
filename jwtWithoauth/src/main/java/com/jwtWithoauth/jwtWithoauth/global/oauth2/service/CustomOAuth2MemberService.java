@@ -69,8 +69,6 @@ public class CustomOAuth2MemberService implements OAuth2UserService<OAuth2UserRe
         switch (RegistrationId.valueOf(registraionId.toUpperCase())) {
             case NAVER:
                 return SocialType.NAVER;
-            case KAKAO:
-                return SocialType.KAKAO;
             default:
                 return SocialType.GOOGLE;
         }

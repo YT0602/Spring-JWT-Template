@@ -35,6 +35,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 jwtService.sendAccessAndRefreshToken(response, accessToken, null);
             } else {
                 loginSuccess(response, oAuth2Member); // 로그인에 성공한 경우 access, refresh 토큰 생성
+                System.out.println("기존 회원");
             }
         } catch (Exception e) {
             throw e;

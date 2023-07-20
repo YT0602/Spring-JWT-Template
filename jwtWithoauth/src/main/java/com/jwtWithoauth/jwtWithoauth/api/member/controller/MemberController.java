@@ -3,9 +3,11 @@ package com.jwtWithoauth.jwtWithoauth.api.member.controller;
 import com.jwtWithoauth.jwtWithoauth.domain.member.dto.MemberSignDto;
 import com.jwtWithoauth.jwtWithoauth.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+//@RestController
+@Controller
 @RequiredArgsConstructor
 public class MemberController {
 
